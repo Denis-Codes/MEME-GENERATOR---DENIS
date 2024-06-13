@@ -26,40 +26,87 @@ var gMeme = {
     selectedLineIdx: 0,
     lines: [
         {
-            txt: '',
+            txt: 'I eat falafel',
             size: 20,
-            color: 'white'
+            color: 'white',
+            y: 50
         }
     ]
 }
-var gKeywordSearchCountMap = { 'funny': 12, 'cat': 16, 'baby': 2 }
+
+var gKeywordSearchCountMap = { 'funny': 0, 'cat': 0, 'baby': 0 }
 
 
 function getMeme() {
     return gMeme
 }
 
-function coverCanvasWithImg(elImg) {
-    gElCanvas.height = (elImg.naturalHeight / elImg.naturalWidth) * gElCanvas.width
-    gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
-}
-
 function getImageById(id) {
     return gImgs.find(img => img.id === id)
 }
 
+function setImg(elImg) {
+    const selectedImgId = +elImg.dataset.imgId
+    gMeme.selectedImgId = selectedImgId
+}
+
 function setLineTxt(text) {
-    gMeme.lines[0].txt = text;
+    gMeme.lines[0].txt = text
+}
+
+function setBottomLineTxt(text) {
+    const meme = getMeme()
+    if (meme.lines.length > 1) {
+        meme.lines[1].txt = text 
+    } else {
+        const newLine = {
+            txt: text,
+            size: 20,
+            color: 'white',
+            y: gElCanvas.height - 50 
+        }
+        meme.lines.push(newLine)
+    }
+}
+function textColor(event) {
+    const color = event.target.value
+    const meme = getMeme()
+    meme.lines.forEach(line => {
+        line.color = color
+    })
+    renderMeme()
+}
+
+function changeFontSize(diff) {
+    const meme = getMeme()
+    meme.lines.forEach(line => {
+        line.size += diff
+    })
+    renderMeme()
+}
+
+function addLine() {
+    var newLine = {
+        txt: 'I like shawarma better',
+        size: 20,
+        color: 'white',
+        y: gMeme.lines.length === 0 ? 50 : gElCanvas.height - 50 
+    }
+    gMeme.lines.push(newLine)
+    renderMeme() 
 }
 
 function renderText() {
     const meme = getMeme()
-    const line = meme.lines[meme.selectedLineIdx]
-
-
-    gCtx.font = `${line.size}px Arial`
-    gCtx.fillStyle = line.color
-    gCtx.fillText(line.txt, 50, 50) 
+    meme.lines.forEach(line => {
+        gCtx.lineWidth = '2'
+        gCtx.strokeStyle = 'black'
+        gCtx.fillStyle = line.color
+        gCtx.font = `${line.size}px Arial` 
+        gCtx.textAlign = 'center' 
+        gCtx.textBaseline = 'middle' 
+        gCtx.fillText(line.txt, gElCanvas.width / 2, line.y)
+        gCtx.strokeText(line.txt, gElCanvas.width / 2, line.y)
+    })
 }
-
 

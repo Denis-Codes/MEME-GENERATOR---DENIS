@@ -14,12 +14,13 @@ function onInit() {
 }
 
 function renderMeme() {
-    console.log('Rendering meme...')
     const meme = getMeme()
-    console.log('meme: ', meme)
+    const img = getImageById(meme.selectedImgId)
 
-    const img = gImgs
-
+    if (!img) {
+        console.error('Image not found!')
+        return
+    }
 
     const elImg = new Image()
     elImg.src = img.url
@@ -36,11 +37,50 @@ function onTextChange() {
     renderMeme()
 }
 
-function onSelectImg(elImg) {
-    coverCanvasWithImg(elImg)
-    
+function onBottomTextChange() {
+    const bottomText = document.querySelector('.bottom-text').value
+    setBottomLineTxt(bottomText)
+    renderMeme()
 }
 
+function onImgSelect(elImg) {
+    setImg(elImg)
+    renderMeme()
+}
 
+// function onSwitchView(elBtn) {
+//     console.log('switching view')
+//     if (elBtn.innerText === 'Gallery') {
+//         var elEditorContainer = document.querySelector('.editor')
+//         elEditorContainer.classList.toggle('hidden')
+//     } else {
+//         var elGalleryContainer = document.querySelector('.gallery')
+//         elGalleryContainer.classList.toggle('hidden')
+//     }
+// }
 
+function onDownloadImg(elLink) {
+    const dataUrl = gElCanvas.toDataURL()
+    elLink.href = dataUrl
+    elLink.download = 'my-img'
+}
+
+function onIncreaseFont() {
+    changeFontSize(2)
+}
+
+function onDecreaseFont() {
+    changeFontSize(-2)
+}
+
+function onAddLine() {
+    console.log('adding line')
+    addLine()
+    renderMeme()
+}
+
+// function onSwitchLine() {
+//     console.log('switching lines')
+//     switchLine()
+// }
 

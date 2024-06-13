@@ -11,15 +11,31 @@
 <body onload="onInit()">
     <header>
         <span class="logo">Denis's Meme Generator</span>
-        <!-- <span>Gallery</span> -->
+        <button onclick="onSwitchView(this)">Gallery</button>
+        <button onclick="onSwitchView(this)">Editor</button>
     </header>
     <main>
         <section class="editor">
             <canvas width="400px" height="400px"></canvas>
             <input type="text" class="top-text" placeholder="Top Text" oninput="onTextChange()">
-            <!-- <input type="text" class="bottom-text" placeholder="Bottom Text" oninput="onTextChange()"> -->
+            <input type="text" class="bottom-text" placeholder="Bottom Text" oninput="onBottomTextChange()">
+            <label for="text-color">Set Text Color: </label>
+            <input type="color" id="text-color" name="textColor" form="frmRegister" value="#ff0000"
+            onchange="textColor(event)" />
+            <button onclick="onSwitchLine()">Switch Line</button>
+            <button onclick="onIncreaseFont()">Increase Font</button>
+            <button onclick="onDecreaseFont()">Decrease Font</button>
+            <button onclick="onAddLine()">+</button>
+            <button class="download-btn">
+                <a href="#" onclick="onDownloadImg(this)">Download Meme</a>
+            </button>
         </section>
-        <section class="gallery">
+        <section class="gallery hidden">
+            <header>
+                <span class="logo">Denis's Meme Generator</span>
+                <button onclick="onSwitchView()">Gallery</button>
+                <button onclick="onSwitchView()">Editor</button>
+            </header>
             <h3>Select an image</h3>
             <div class="gallery-container">
 
