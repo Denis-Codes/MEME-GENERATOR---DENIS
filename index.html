@@ -1,25 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DENIS'S MEME GENERATOR</title>
     <link rel="stylesheet" href="css/main.css">
 </head>
-<body>
+
+<body onload="onInit()">
     <header>
         <span class="logo">Denis's Meme Generator</span>
+        <!-- <span>Gallery</span> -->
     </header>
     <main>
-        <section class="gallery">
-
-        </section>
         <section class="editor">
             <canvas width="400px" height="400px"></canvas>
             <input type="text" placeholder="Enter text here">
         </section>
+        <section class="gallery">
+            <h3>Select an image</h3>
+            <img src="meme-imgs/meme-imgs (square)/1.jpg" alt="" onclick="onSelectImg(this)">
+            <img src="meme-imgs/meme-imgs (square)/2.jpg" alt="" onclick="onSelectImg(this)">
+            <img src="meme-imgs/meme-imgs (square)/3.jpg" alt="" onclick="onSelectImg(this)">
+            <img src="meme-imgs/meme-imgs (square)/4.jpg" alt="" onclick="onSelectImg(this)">
+            <img src="meme-imgs/meme-imgs (square)/5.jpg" alt="" onclick="onSelectImg(this)">
+            <img src="meme-imgs/meme-imgs (square)/6.jpg" alt="" onclick="onSelectImg(this)">
+            <img src="meme-imgs/meme-imgs (square)/7.jpg" alt="" onclick="onSelectImg(this)">
+            <img src="meme-imgs/meme-imgs (square)/8.jpg" alt="" onclick="onSelectImg(this)">
+            <img src="meme-imgs/meme-imgs (square)/9.jpg" alt="" onclick="onSelectImg(this)">
+            <img src="meme-imgs/meme-imgs (square)/10.jpg" alt="" onclick="onSelectImg(this)">
+            <img src="meme-imgs/meme-imgs (square)/11.jpg" alt="" onclick="onSelectImg(this)">
+            <img src="meme-imgs/meme-imgs (square)/12.jpg" alt="" onclick="onSelectImg(this)">
+            <img src="meme-imgs/meme-imgs (square)/13.jpg" alt="" onclick="onSelectImg(this)">
+            <img src="meme-imgs/meme-imgs (square)/14.jpg" alt="" onclick="onSelectImg(this)">
+            <img src="meme-imgs/meme-imgs (square)/15.jpg" alt="" onclick="onSelectImg(this)">
+            <img src="meme-imgs/meme-imgs (square)/16.jpg" alt="" onclick="onSelectImg(this)">
+            <img src="meme-imgs/meme-imgs (square)/17.jpg" alt="" onclick="onSelectImg(this)">
+            <img src="meme-imgs/meme-imgs (square)/18.jpg" alt="" onclick="onSelectImg(this)">
+        </section>
     </main>
     <footer></footer>
-    <script src="js/main.js"></script>
+    <script src="js/services/memeService.js"></script>
+    <script src="js/memeController.js"></script>
 </body>
+
 </html>
