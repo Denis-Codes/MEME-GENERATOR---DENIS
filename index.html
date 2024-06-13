@@ -16,33 +16,40 @@
     <main>
         <section class="editor">
             <canvas width="400px" height="400px"></canvas>
-            <input type="text" placeholder="Enter text here">
+            <input type="text" class="top-text" placeholder="Top Text" oninput="onTextChange()">
+            <!-- <input type="text" class="bottom-text" placeholder="Bottom Text" oninput="onTextChange()"> -->
         </section>
         <section class="gallery">
             <h3>Select an image</h3>
-            <img src="meme-imgs/meme-imgs (square)/1.jpg" alt="" onclick="onSelectImg(this)">
-            <img src="meme-imgs/meme-imgs (square)/2.jpg" alt="" onclick="onSelectImg(this)">
-            <img src="meme-imgs/meme-imgs (square)/3.jpg" alt="" onclick="onSelectImg(this)">
-            <img src="meme-imgs/meme-imgs (square)/4.jpg" alt="" onclick="onSelectImg(this)">
-            <img src="meme-imgs/meme-imgs (square)/5.jpg" alt="" onclick="onSelectImg(this)">
-            <img src="meme-imgs/meme-imgs (square)/6.jpg" alt="" onclick="onSelectImg(this)">
-            <img src="meme-imgs/meme-imgs (square)/7.jpg" alt="" onclick="onSelectImg(this)">
-            <img src="meme-imgs/meme-imgs (square)/8.jpg" alt="" onclick="onSelectImg(this)">
-            <img src="meme-imgs/meme-imgs (square)/9.jpg" alt="" onclick="onSelectImg(this)">
-            <img src="meme-imgs/meme-imgs (square)/10.jpg" alt="" onclick="onSelectImg(this)">
-            <img src="meme-imgs/meme-imgs (square)/11.jpg" alt="" onclick="onSelectImg(this)">
-            <img src="meme-imgs/meme-imgs (square)/12.jpg" alt="" onclick="onSelectImg(this)">
-            <img src="meme-imgs/meme-imgs (square)/13.jpg" alt="" onclick="onSelectImg(this)">
-            <img src="meme-imgs/meme-imgs (square)/14.jpg" alt="" onclick="onSelectImg(this)">
-            <img src="meme-imgs/meme-imgs (square)/15.jpg" alt="" onclick="onSelectImg(this)">
-            <img src="meme-imgs/meme-imgs (square)/16.jpg" alt="" onclick="onSelectImg(this)">
-            <img src="meme-imgs/meme-imgs (square)/17.jpg" alt="" onclick="onSelectImg(this)">
-            <img src="meme-imgs/meme-imgs (square)/18.jpg" alt="" onclick="onSelectImg(this)">
+            <div class="gallery-container">
+
+            </div>
         </section>
     </main>
     <footer></footer>
     <script src="js/services/memeService.js"></script>
     <script src="js/memeController.js"></script>
+    <script src="js/galleryController.js"></script>
 </body>
 
 </html>
+
+<!-- 
+<img src="meme-imgs/meme-imgs (square)/1.jpg" alt="" onclick="onSelectImg(this)">
+<img src="meme-imgs/meme-imgs (square)/2.jpg" alt="" onclick="onSelectImg(this)">
+<img src="meme-imgs/meme-imgs (square)/3.jpg" alt="" onclick="onSelectImg(this)">
+<img src="meme-imgs/meme-imgs (square)/4.jpg" alt="" onclick="onSelectImg(this)">
+<img src="meme-imgs/meme-imgs (square)/5.jpg" alt="" onclick="onSelectImg(this)">
+<img src="meme-imgs/meme-imgs (square)/6.jpg" alt="" onclick="onSelectImg(this)">
+<img src="meme-imgs/meme-imgs (square)/7.jpg" alt="" onclick="onSelectImg(this)">
+<img src="meme-imgs/meme-imgs (square)/8.jpg" alt="" onclick="onSelectImg(this)">
+<img src="meme-imgs/meme-imgs (square)/9.jpg" alt="" onclick="onSelectImg(this)">
+<img src="meme-imgs/meme-imgs (square)/10.jpg" alt="" onclick="onSelectImg(this)">
+<img src="meme-imgs/meme-imgs (square)/11.jpg" alt="" onclick="onSelectImg(this)">
+<img src="meme-imgs/meme-imgs (square)/12.jpg" alt="" onclick="onSelectImg(this)">
+<img src="meme-imgs/meme-imgs (square)/13.jpg" alt="" onclick="onSelectImg(this)">
+<img src="meme-imgs/meme-imgs (square)/14.jpg" alt="" onclick="onSelectImg(this)">
+<img src="meme-imgs/meme-imgs (square)/15.jpg" alt="" onclick="onSelectImg(this)">
+<img src="meme-imgs/meme-imgs (square)/16.jpg" alt="" onclick="onSelectImg(this)">
+<img src="meme-imgs/meme-imgs (square)/17.jpg" alt="" onclick="onSelectImg(this)">
+<img src="meme-imgs/meme-imgs (square)/18.jpg" alt="" onclick="onSelectImg(this)"> -->
