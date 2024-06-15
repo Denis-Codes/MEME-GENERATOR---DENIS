@@ -26,19 +26,23 @@ var gMeme = {
     selectedLineIdx: 0,
     lines: [
         {
-            txt: 'I eat falafel',
-            size: 20,
+            txt: 'Top Text',
+            size: 50,
             color: 'white',
             x: null,
             y: 50,
             width: null,
-            height: null
+            height: null,
+            font: 'Impact'
         }
     ]
 }
 
+var gUploadedImg = null
 
 var gKeywordSearchCountMap = { 'funny': 0, 'cat': 0, 'baby': 0 }
+
+var gMemeText = ['Coding got me like', 'When you find a bug in the code']
 
 function getMeme() {
     return gMeme
@@ -51,6 +55,7 @@ function getImageById(id) {
 function setImg(elImg) {
     const selectedImgId = +elImg.dataset.imgId
     gMeme.selectedImgId = selectedImgId
+    gUploadedImg = null
 }
 
 function setLineTxt(text) {
@@ -76,11 +81,12 @@ function changeFontSize(diff) {
 
 function addLine() {
     var newLine = {
-        txt: 'I like shawarma better',
-        size: 20,
+        txt: 'Bottom Text',
+        size: 50,
         color: 'white',
         x: null,
-        y: gMeme.lines.length === 0 ? 50 : gElCanvas.height - 50
+        y: gMeme.lines.length === 0 ? 50 : gElCanvas.height - 50,
+        font: 'Impact'
     }
     gMeme.lines.push(newLine)
     updateTextInput()
@@ -117,4 +123,78 @@ function switchLine() {
 
     document.querySelector('.meme-text-input').focus()
 }
+
+//FACEBOOK
+
+function onUploadImg() {
+    // Gets the image from the canvas
+    const imgDataUrl = gElCanvas.toDataURL('image/jpeg')
+
+    function onSuccess(uploadedImgUrl) {
+        // Handle some special characters
+        const url = encodeURIComponent(uploadedImgUrl)
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&t=${url}`)
+    }
+
+    // Send the image to the server
+    doUploadImg(imgDataUrl, onSuccess)
+}
+
+// Upload the image to a server, get back a URL 
+// call the function onSuccess when done
+function doUploadImg(imgDataUrl, onSuccess) {
+    // Pack the image for delivery
+    const formData = new FormData()
+    formData.append('img', imgDataUrl)
+
+    // Send a post req with the image to the server
+    const XHR = new XMLHttpRequest()
+    XHR.onreadystatechange = () => {
+        // If the request is not done, we have no business here yet, so return
+        if (XHR.readyState !== XMLHttpRequest.DONE) return
+        // if the response is not ok, show an error
+        if (XHR.status !== 200) return console.error('Error uploading image')
+        const { responseText: url } = XHR
+        // Same as
+        // const url = XHR.responseText
+
+        // If the response is ok, call the onSuccess callback function, 
+        // that will create the link to facebook using the url we got
+        console.log('Got back live url:', url)
+        onSuccess(url)
+    }
+    XHR.onerror = (req, ev) => {
+        console.error('Error connecting to server with request:', req, '\nGot response data:', ev)
+    }
+    XHR.open('POST', '//ca-upload.com/here/upload.php')
+    XHR.send(formData)
+}
+
+//UPLOAD IMG
+
+function onImgInput(ev) {
+    loadImageFromInput(ev, renderImg)
+}
+
+// Read the file from the input
+// When done send the image to the callback function
+function loadImageFromInput(ev, onImageReady) {
+    const reader = new FileReader()
+    reader.onload = function (event) {
+        let elImg = new Image()
+        elImg.src = event.target.result
+        elImg.onload = () => onImageReady(elImg)
+    }
+    reader.readAsDataURL(ev.target.files[0])
+}
+
+function renderImg(elImg) {
+    // Draw the img on the canvas
+    gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
+    gUploadedImg = elImg
+    renderText()
+}
+
+
+
 

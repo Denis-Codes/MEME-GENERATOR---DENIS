@@ -4,14 +4,16 @@
 }
 
 body {
-    background-color: #1B1A17;
+    background-color: #393E46;
     color: #F0E3CA;
     font-size: 1rem;
-    font-family: 'Inconsolata', monospace;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     text-transform: uppercase;
     letter-spacing: 0.2em;
     margin: 0;
     padding: 0;
+    padding-top: 4.375rem;
+
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -24,8 +26,8 @@ body {
 
 .header,
 footer {
-    background-color: #FF8303;
-    box-shadow: rgba(255, 255, 255, 0.24) 0 0.1875rem 0.5rem;
+    background-color: #222831;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -34,17 +36,24 @@ footer {
 
 .header {
     height: 4.375rem;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    
+    
 }
 
 footer {
-    height: 8.375rem;
+    height: 6.375rem;
     margin-top: auto;
 }
 
 button {
-    background-color: #A35709;
+    background-color: #00ADB5;
     color: inherit;
     border: none;
+    font-family: inherit;
     font-weight: bold;
     margin: auto;
     transform: scale(1);
@@ -56,13 +65,22 @@ button {
 button:hover {
     transform: scale(1.1);
     cursor: pointer;
-    box-shadow: rgba(255, 255, 255, 0.24) 0 0.1875rem 0.5rem;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+canvas {
+    border: 0.125rem solid #333;
+    background-color: #fff;
+    max-width: 100%;
+    height: auto;
+    margin: 1.25rem;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
 .editor {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    
+
     justify-items: center;
     align-items: center;
 }
@@ -71,9 +89,10 @@ button:hover {
     display: grid;
     gap: 0.625rem;
     width: 100%;
-    max-width: 18.75rem;
+    /* max-width: 18.75rem; */
+    max-width: 25rem;
     margin: 1.25rem 0;
-
+    /* margin-right: 200px; */
 }
 
 /* .line-controls,
@@ -92,21 +111,13 @@ button:hover {
 .gallery-container {
     display: flex;
     flex-wrap: wrap;
-    
-    
+
+
     gap: 1.25rem;
     padding: 1.25rem;
     width: 100%;
     max-width: 100%;
     justify-content: center;
-}
-
-canvas {
-    border: 0.125rem solid #333;
-    background-color: #fff;
-    max-width: 100%;
-    height: auto;
-    margin: 1.25rem;
 }
 
 img {
@@ -116,7 +127,9 @@ img {
 
     transform: scale(1);
     transition: transform 0.3s ease-in-out;
-    border: 0.3125rem solid #A35709;
+    border: 0.3125rem solid #EEEEEE;
+
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
 img:hover {
@@ -144,44 +157,47 @@ input {
     max-width: 18.75rem;
 }
 
-/* @media (max-width: 480) {
+.meme-text-input:hover {
+    cursor: text;
+}
+
+input:hover {
+    cursor: pointer;
+}
+
+.font-family-select {
+    max-width: 18.75rem;
+    width: 70%;
+    margin: auto;
+}
+
+.file-input {
+    width: 110px;
+
+}
+
+@media (max-width: 48rem) {
+
     .editor {
-        flex-direction: row;
-    }
-
-    .editor-controls {
-        height: 31.25rem;
-    }
-
-    .editor-controls,
-    .gallery-container {
-        max-width: 100%;
-    }
-
-    .line-controls,
-    .font-controls {
+        display: flex;
         flex-direction: column;
+
+        justify-items: center;
         align-items: center;
     }
-} */
 
-/* @media (min-width: 768px) {
-    .editor {
-        flex-direction: row;
+    .logo {
+        font-size: 1rem;
+        font-weight: bold;
     }
 
-    .editor-controls {
-        height: 31.25rem;
-    }
+    footer {
+        height: 16.750rem;
+        margin-top: auto;
 
-    .editor-controls,
-    .gallery-container {
-        max-width: 100%;
-    }
+        font-size: 1rem;
+        font-weight: bold;
 
-    .line-controls,
-    .font-controls {
-        flex-direction: column;
-        align-items: center;
+        place-content: center;
     }
-} */
+}

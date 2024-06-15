@@ -13,20 +13,27 @@
         <div class="header">
             <span class="logo">Denis's Meme Generator</span>
             <div class="nav-btns">
-                <button onclick="onSwitchView(this)">Gallery</button>
+                <button class="view-switch-btn" onclick="onSwitchView(this)">Editor</button>
                 <!-- <button onclick="onSwitchView(this)">Editor</button> -->
             </div>
         </div>
     </header>
     <main>
-        <section class="editor">
+        <section class="editor hidden">
 
             <canvas width="500px" height="500px" onclick="onCanvasClick(event)"></canvas>
 
             <div class="editor-controls">
                 <input type="text" class="meme-text-input" placeholder="Funny stuff" oninput="onTextChange()">
+                Font
+                <select class="font-family-select" onchange="onFontChange(this.value)"
+                    value="Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
+                    <option value="Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">Impact</option>
+                    <option value="Franklin Gothic Medium"> Franklin</option>
+                    <option value="Verdana"> Verdana</option>
+                </select>
                 <label for="text-color">Set Text Color: </label>
-                <input type="color" id="text-color" name="textColor" value="#ff0000" onchange="textColor(event)" />
+                <input type="color" id="text-color" name="textColor" value="#222831" onchange="textColor(event)" />
                 <div class="line-controls">
                     <button onclick="onAddLine()">Add Line</button>
                     <button onclick="onSwitchLine()">Switch Line</button>
@@ -35,19 +42,26 @@
                     <button onclick="onIncreaseFont()">A+</button>
                     <button onclick="onDecreaseFont()">A-</button>
                 </div>
-                <button class="download-btn">
-                    <a href="#" onclick="onDownloadImg(this)">Download Meme</a>
-                </button>
+                <div class="download-share-btns">
+                    <button class="download-btn">
+                        <a href="#" onclick="onDownloadImg(this)">Download Meme</a>
+                    </button>
+                    <button class="btn" onclick="onUploadImg()">
+                        Share on Facebook
+                    </button>
+                    <input type="file" class="file-input" name="image" onchange="onImgInput(event)" accept="image/*" />
+                </div>
             </div>
         </section>
-        <section class="gallery hidden">
-            <h3>Select an image!</h3>
+        <section class="gallery">
+            <h2>Select an image!</h2>
+            <button class="flexible-btn" onclick="onRandomMeme()">I'm Flexible!</button>
             <div class="gallery-container">
 
             </div>
         </section>
     </main>
-    <footer>2024 Meme Generator - Denis Libin</footer>
+    <footer>2024 All Rights Reserved</footer>
     <script src="js/services/memeService.js"></script>
     <script src="js/memeController.js"></script>
     <script src="js/galleryController.js"></script>
@@ -74,3 +88,15 @@
 <img src="meme-imgs/meme-imgs (square)/16.jpg" alt="" onclick="onSelectImg(this)">
 <img src="meme-imgs/meme-imgs (square)/17.jpg" alt="" onclick="onSelectImg(this)">
 <img src="meme-imgs/meme-imgs (square)/18.jpg" alt="" onclick="onSelectImg(this)"> -->
+
+<!-- <form id="form">
+    <label for="font">Fonts</label>
+    <input type="text" list="fontOptions" id="font" name="font" placeholder="Choose font"
+        onchange="onFontChange()" />
+    <datalist id="fontOptions">
+        <option value="Impact"></option>
+        <option value="Arial"></option>
+        <option value="Times New Roman"></option>
+        <option value="Courier New"></option>
+    </datalist>
+</form> -->
