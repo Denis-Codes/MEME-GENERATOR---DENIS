@@ -29,13 +29,16 @@ var gMeme = {
             txt: 'I eat falafel',
             size: 20,
             color: 'white',
-            y: 50
+            x: null,
+            y: 50,
+            width: null,
+            height: null
         }
     ]
 }
 
-var gKeywordSearchCountMap = { 'funny': 0, 'cat': 0, 'baby': 0 }
 
+var gKeywordSearchCountMap = { 'funny': 0, 'cat': 0, 'baby': 0 }
 
 function getMeme() {
     return gMeme
@@ -54,20 +57,6 @@ function setLineTxt(text) {
     gMeme.lines[0].txt = text
 }
 
-function setBottomLineTxt(text) {
-    const meme = getMeme()
-    if (meme.lines.length > 1) {
-        meme.lines[1].txt = text 
-    } else {
-        const newLine = {
-            txt: text,
-            size: 20,
-            color: 'white',
-            y: gElCanvas.height - 50 
-        }
-        meme.lines.push(newLine)
-    }
-}
 function textColor(event) {
     const color = event.target.value
     const meme = getMeme()
@@ -90,11 +79,21 @@ function addLine() {
         txt: 'I like shawarma better',
         size: 20,
         color: 'white',
-        y: gMeme.lines.length === 0 ? 50 : gElCanvas.height - 50 
+        x: null,
+        y: gMeme.lines.length === 0 ? 50 : gElCanvas.height - 50
     }
     gMeme.lines.push(newLine)
-    renderMeme() 
+    updateTextInput()
+    renderMeme()
 }
+
+function updateTextInput() {
+    const meme = getMeme()
+    const selectedLine = meme.lines[meme.selectedLineIdx]
+    const elTextInput = document.querySelector('.meme-text-input')
+    elTextInput.value = selectedLine.txt
+}
+
 
 function renderText() {
     const meme = getMeme()
@@ -102,11 +101,20 @@ function renderText() {
         gCtx.lineWidth = '2'
         gCtx.strokeStyle = 'black'
         gCtx.fillStyle = line.color
-        gCtx.font = `${line.size}px Arial` 
-        gCtx.textAlign = 'center' 
-        gCtx.textBaseline = 'middle' 
+        gCtx.font = `${line.size}px Arial`
+        gCtx.textAlign = 'center'
+        gCtx.textBaseline = 'middle'
         gCtx.fillText(line.txt, gElCanvas.width / 2, line.y)
         gCtx.strokeText(line.txt, gElCanvas.width / 2, line.y)
     })
+}
+
+function switchLine() {
+    
+    gMeme.selectedLineIdx = (gMeme.selectedLineIdx + 1) % gMeme.lines.length
+
+    updateTextInput()
+
+    document.querySelector('.meme-text-input').focus()
 }
 
