@@ -11,7 +11,7 @@
 <body onload="onInit()">
     <header>
         <div class="header">
-            <span class="logo">Denis's Meme Generator</span>
+            <span class="logo" onclick="onSwitchView()">Denis's Meme Generator</span>
             <div class="nav-btns">
                 <button class="view-switch-btn" onclick="onSwitchView(this)">Editor</button>
                 <!-- <button onclick="onSwitchView(this)">Editor</button> -->
@@ -25,7 +25,7 @@
 
             <div class="editor-controls">
                 <input type="text" class="meme-text-input" placeholder="Funny stuff" oninput="onTextChange()">
-                Font
+               Set Font:
                 <select class="font-family-select" onchange="onFontChange(this.value)"
                     value="Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
                     <option value="Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">Impact</option>
@@ -38,6 +38,10 @@
                     <button onclick="onAddLine()">Add Line</button>
                     <button onclick="onSwitchLine()">Switch Line</button>
                 </div>
+                <div class="up-down-arrws">
+                    <button class="btn up" onclick="moveLine(-1)">Move Up</button>
+                    <button class="btn down" onclick="moveLine(1)">Move Down</button>
+                </div>
                 <div class="font-controls">
                     <button onclick="onIncreaseFont()">A+</button>
                     <button onclick="onDecreaseFont()">A-</button>
@@ -46,9 +50,12 @@
                     <button class="download-btn">
                         <a href="#" onclick="onDownloadImg(this)">Download Meme</a>
                     </button>
-                    <button class="btn" onclick="onUploadImg()">
-                        Share on Facebook
+                    <button class="share-btn" onclick="onUploadImg()">
+                        Share On Facebook
                     </button>
+                </div>
+                <div class="upload-img">
+                    Upload Image:
                     <input type="file" class="file-input" name="image" onchange="onImgInput(event)" accept="image/*" />
                 </div>
             </div>
@@ -69,25 +76,6 @@
 
 </html>
 
-<!-- 
-<img src="meme-imgs/meme-imgs (square)/1.jpg" alt="" onclick="onSelectImg(this)">
-<img src="meme-imgs/meme-imgs (square)/2.jpg" alt="" onclick="onSelectImg(this)">
-<img src="meme-imgs/meme-imgs (square)/3.jpg" alt="" onclick="onSelectImg(this)">
-<img src="meme-imgs/meme-imgs (square)/4.jpg" alt="" onclick="onSelectImg(this)">
-<img src="meme-imgs/meme-imgs (square)/5.jpg" alt="" onclick="onSelectImg(this)">
-<img src="meme-imgs/meme-imgs (square)/6.jpg" alt="" onclick="onSelectImg(this)">
-<img src="meme-imgs/meme-imgs (square)/7.jpg" alt="" onclick="onSelectImg(this)">
-<img src="meme-imgs/meme-imgs (square)/8.jpg" alt="" onclick="onSelectImg(this)">
-<img src="meme-imgs/meme-imgs (square)/9.jpg" alt="" onclick="onSelectImg(this)">
-<img src="meme-imgs/meme-imgs (square)/10.jpg" alt="" onclick="onSelectImg(this)">
-<img src="meme-imgs/meme-imgs (square)/11.jpg" alt="" onclick="onSelectImg(this)">
-<img src="meme-imgs/meme-imgs (square)/12.jpg" alt="" onclick="onSelectImg(this)">
-<img src="meme-imgs/meme-imgs (square)/13.jpg" alt="" onclick="onSelectImg(this)">
-<img src="meme-imgs/meme-imgs (square)/14.jpg" alt="" onclick="onSelectImg(this)">
-<img src="meme-imgs/meme-imgs (square)/15.jpg" alt="" onclick="onSelectImg(this)">
-<img src="meme-imgs/meme-imgs (square)/16.jpg" alt="" onclick="onSelectImg(this)">
-<img src="meme-imgs/meme-imgs (square)/17.jpg" alt="" onclick="onSelectImg(this)">
-<img src="meme-imgs/meme-imgs (square)/18.jpg" alt="" onclick="onSelectImg(this)"> -->
 
 <!-- <form id="form">
     <label for="font">Fonts</label>

@@ -100,7 +100,6 @@ function updateTextInput() {
     elTextInput.value = selectedLine.txt
 }
 
-
 function renderText() {
     const meme = getMeme()
     meme.lines.forEach(line => {
@@ -122,6 +121,13 @@ function switchLine() {
     updateTextInput()
 
     document.querySelector('.meme-text-input').focus()
+}
+
+function moveLine(dir) {
+    const line = gMeme.lines[gMeme.selectedLineIdx]
+    if (dir === 'up') line.y -= 5
+    if (dir === 'down') line.y += 5
+    renderMeme()
 }
 
 //FACEBOOK

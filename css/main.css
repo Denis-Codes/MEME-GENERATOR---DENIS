@@ -22,6 +22,8 @@ body {
 .logo {
     font-size: 2rem;
     font-weight: bolder;
+
+    cursor: pointer;
 }
 
 .header,
@@ -40,12 +42,10 @@ footer {
     top: 0;
     z-index: 1;
     width: 100%;
-    
-    
 }
 
 footer {
-    height: 6.375rem;
+    height: 2.375rem;
     margin-top: auto;
 }
 
@@ -69,7 +69,7 @@ button:hover {
 }
 
 canvas {
-    border: 0.125rem solid #333;
+    border: 0.325rem solid #EEEEEE;
     background-color: #fff;
     max-width: 100%;
     height: auto;
@@ -145,7 +145,11 @@ img:hover {
 /* Misc */
 a {
     text-decoration: none;
-    color: black;
+    color: #222831;
+}
+
+.share-btn {
+    color: #222831
 }
 
 input {
@@ -167,7 +171,8 @@ input:hover {
 
 .font-family-select {
     max-width: 18.75rem;
-    width: 70%;
+    width: 50%;
+    height: 50px;
     margin: auto;
 }
 
