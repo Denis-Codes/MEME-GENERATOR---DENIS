@@ -22,17 +22,17 @@ var gImgs = [
 ]
 
 var gMeme = {
-    selectedImgId: null,
+    selectedImgId: 0,
     selectedLineIdx: 0,
     lines: [
         {
-            txt: 'Top Text',
+            txt: 'Line',
             size: 50,
             color: 'white',
-            x: null,
+            x: 0,
             y: 50,
-            width: null,
-            height: null,
+            width: 0,
+            height: 0,
             font: 'Impact'
         }
     ]
@@ -81,10 +81,10 @@ function changeFontSize(diff) {
 
 function addLine() {
     var newLine = {
-        txt: 'Bottom Text',
+        txt: 'New Line',
         size: 50,
         color: 'white',
-        x: null,
+        x: 0,
         y: gMeme.lines.length === 0 ? 50 : gElCanvas.height - 50,
         font: 'Impact'
     }
@@ -96,8 +96,13 @@ function addLine() {
 function updateTextInput() {
     const meme = getMeme()
     const selectedLine = meme.lines[meme.selectedLineIdx]
+
     const elTextInput = document.querySelector('.meme-text-input')
-    elTextInput.value = selectedLine.txt
+    if (selectedLine) {
+        elTextInput.value = selectedLine.txt
+    } else {
+        elTextInput.value = ''
+    }
 }
 
 function renderText() {
@@ -106,7 +111,7 @@ function renderText() {
         gCtx.lineWidth = '2'
         gCtx.strokeStyle = 'black'
         gCtx.fillStyle = line.color
-        gCtx.font = `${line.size}px Arial`
+        gCtx.font = `${line.size}px Impact`
         gCtx.textAlign = 'center'
         gCtx.textBaseline = 'middle'
         gCtx.fillText(line.txt, gElCanvas.width / 2, line.y)
@@ -121,6 +126,8 @@ function switchLine() {
     updateTextInput()
 
     document.querySelector('.meme-text-input').focus()
+
+    renderMeme()
 }
 
 function moveLine(dir) {
@@ -128,6 +135,49 @@ function moveLine(dir) {
     if (dir === 'up') line.y -= 5
     if (dir === 'down') line.y += 5
     renderMeme()
+}
+
+function deleteLine() {
+    const meme = getMeme()
+    
+    if (meme.lines.length === 0) return 
+
+    meme.lines.splice(meme.selectedLineIdx, 1)
+    
+    if (meme.selectedLineIdx >= meme.lines.length) {
+        meme.selectedLineIdx = meme.lines.length - 1
+    }
+
+    if (meme.lines.length === 0) {
+        document.querySelector('.meme-text-input').value = ''
+    } else {
+        updateTextInput()
+    }
+
+    renderMeme()
+}
+
+function alignText(align) {
+    console.log('hello')
+    const meme = getMeme()
+    const selectedLine = meme.lines[meme.selectedLineIdx]
+    const textWidth = gCtx.measureText(selectedLine.txt).width
+    
+
+    switch (align) {
+        case 'left':
+            selectedLine.x = 10 
+            break
+        case 'center':
+            selectedLine.x = gElCanvas.width / 2 - textWidth / 2
+            break
+        case 'right':
+            selectedLine.x = gElCanvas.width - textWidth - 10 
+            break
+        default:
+            return 
+    }
+    renderMeme() 
 }
 
 //FACEBOOK

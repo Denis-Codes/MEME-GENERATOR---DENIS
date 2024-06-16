@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DENIS'S MEME GENERATOR</title>
     <link rel="stylesheet" href="css/main.css">
+    <script src="https://kit.fontawesome.com/b8a8375397.js" crossorigin="anonymous"></script>
 </head>
 
 <body onload="onInit()">
@@ -13,8 +14,7 @@
         <div class="header">
             <span class="logo" onclick="onSwitchView()">Denis's Meme Generator</span>
             <div class="nav-btns">
-                <button class="view-switch-btn" onclick="onSwitchView(this)">Editor</button>
-                <!-- <button onclick="onSwitchView(this)">Editor</button> -->
+                <button class="view-switch-btn" onclick="onSwitchView()">Editor</button>
             </div>
         </div>
     </header>
@@ -25,7 +25,19 @@
 
             <div class="editor-controls">
                 <input type="text" class="meme-text-input" placeholder="Funny stuff" oninput="onTextChange()">
-               Set Font:
+                <div class="line-controls">
+                    <button onclick="onAddLine()"><i class="fa-solid fa-plus"></i></button>
+                    <button onclick="onSwitchLine()"><i class="fa-solid fa-arrow-up"></i><i
+                            class="fa-solid fa-arrow-down"></i></button>
+                    <button onclick="deleteLine()" class="delete-line-btn"><i
+                            class="fa-solid fa-trash-can"></i></button>
+                </div>
+                <div class="align-text">
+                    <button onclick="alignText('left')"><i class="fa-solid fa-align-left"></i></button>
+                    <button onclick="alignText('center')"><i class="fa-solid fa-align-center"></i></button>
+                    <button onclick="alignText('right')"><i class="fa-solid fa-align-right"></i></button>
+                </div>
+                Set Font:
                 <select class="font-family-select" onchange="onFontChange(this.value)"
                     value="Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">
                     <option value="Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">Impact</option>
@@ -34,24 +46,23 @@
                 </select>
                 <label for="text-color">Set Text Color: </label>
                 <input type="color" id="text-color" name="textColor" value="#222831" onchange="textColor(event)" />
-                <div class="line-controls">
-                    <button onclick="onAddLine()">Add Line</button>
-                    <button onclick="onSwitchLine()">Switch Line</button>
-                </div>
                 <div class="up-down-arrws">
-                    <button class="btn up" onclick="moveLine(-1)">Move Up</button>
-                    <button class="btn down" onclick="moveLine(1)">Move Down</button>
+                    <button class="btn up" onclick="moveLine('up')"><i
+                            class="fa-solid fa-arrows-up-to-line"></i></button>
+                    <button class="btn down" onclick="moveLine('down')"><i
+                            class="fa-solid fa-arrows-down-to-line"></i></button>
                 </div>
                 <div class="font-controls">
-                    <button onclick="onIncreaseFont()">A+</button>
-                    <button onclick="onDecreaseFont()">A-</button>
+                    <button onclick="onIncreaseFont()"><i class="fa-solid fa-font"></i>+</button>
+                    <button onclick="onDecreaseFont()"><i class="fa-solid fa-font"></i>-</button>
                 </div>
+                <br>
                 <div class="download-share-btns">
                     <button class="download-btn">
-                        <a href="#" onclick="onDownloadImg(this)">Download Meme</a>
+                        <a href="#" onclick="onDownloadImg(this)"><i class="fa-solid fa-download"></i> Download</a>
                     </button>
                     <button class="share-btn" onclick="onUploadImg()">
-                        Share On Facebook
+                        <i class="fa-solid fa-share"></i> Share
                     </button>
                 </div>
                 <div class="upload-img">
