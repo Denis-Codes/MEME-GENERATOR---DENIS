@@ -2,16 +2,20 @@
 
 var gElCanvas
 var gCtx
+var gFilterBy = ''
+var isDragging = false
+var startX, startY
 
 function onInit() {
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')
 
-    gMeme.selectedImgId = gImgs[1].id
-
+    gMeme.selectedImgId = gImgs[13].id
     renderMeme()
     renderGallery()
+    populateDatalist()
     updateTextInput()
+    addEventListeners()
 }
 
 function renderMeme() {
@@ -28,7 +32,7 @@ function renderMeme() {
             const textWidth = gCtx.measureText(line.txt).width
             const textHeight = line.size
 
-            if (line.x === 0) {
+            if (line.x === null) {
                 line.x = gElCanvas.width / 2 - textWidth / 2
             }
             line.width = textWidth
@@ -50,20 +54,15 @@ function renderMeme() {
         })
     }
 
-    if (gUploadedImg) {
-        gCtx.drawImage(gUploadedImg, 0, 0, gElCanvas.width, gElCanvas.height)
-        drawImageAndText()
-    } else {
-        const img = getImageById(meme.selectedImgId)
-        if (!img) return
+    const img = getImageById(meme.selectedImgId)
+    if (!img) return
 
-        const elImg = new Image()
-        elImg.src = img.url
-        elImg.onload = () => {
-            gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
-            gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
-            drawImageAndText()
-        }
+    const elImg = new Image()
+    elImg.src = img.url
+    elImg.onload = () => {
+        gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
+        gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
+        drawImageAndText()
     }
 }
 
@@ -169,4 +168,68 @@ function onSwitchView() {
     } else {
         elViewBtn.innerText = 'Gallery'
     }
+}
+
+function onSetFilterBy(elInput) {
+    gFilterBy = elInput.value.toLowerCase()
+    renderGallery()
+}
+
+function onResetFilter() {
+    const elInput = document.querySelector('.filter-text')
+    elInput.value = ''
+    gFilterBy = ''
+    renderGallery()
+}
+
+function populateDatalist() {
+    const datalist = document.getElementById('keywords-list')
+    const keywords = new Set()
+
+    gImgs.forEach(img => {
+        img.keywords.forEach(keyword => keywords.add(keyword))
+    })
+
+    const options = Array.from(keywords).map(keyword => `<option value="${keyword}">`).join('')
+    datalist.innerHTML = options
+}
+
+function onMouseDown(ev) {
+    const { offsetX, offsetY } = ev
+    const meme = getMeme()
+    const selectedLine = meme.lines[meme.selectedLineIdx]
+
+    if (
+        offsetX >= selectedLine.x &&
+        offsetX <= selectedLine.x + selectedLine.width &&
+        offsetY >= selectedLine.y &&
+        offsetY <= selectedLine.y + selectedLine.height
+    ) {
+        isDragging = true
+        startX = offsetX
+        startY = offsetY
+    }
+}
+
+function onMouseMove(ev) {
+    if (!isDragging) return
+
+    const { offsetX, offsetY } = ev
+    const meme = getMeme()
+    const selectedLine = meme.lines[meme.selectedLineIdx]
+
+    const dx = offsetX - startX
+    const dy = offsetY - startY
+
+    selectedLine.x += dx
+    selectedLine.y += dy
+
+    startX = offsetX
+    startY = offsetY
+
+    renderMeme()
+}
+
+function onMouseUp() {
+    isDragging = false
 }

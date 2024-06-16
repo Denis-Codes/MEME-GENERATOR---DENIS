@@ -73,7 +73,13 @@
         </section>
         <section class="gallery">
             <h2>Select an image!</h2>
-            <button class="flexible-btn" onclick="onRandomMeme()">I'm Flexible!</button>
+            <div class="filter-container">
+                <input list="keywords-list" class="filter-text" placeholder="Search by keyword" oninput="onSetFilterBy(this)">
+                <datalist id="keywords-list"></datalist>
+                <button onclick="onResetFilter()">Reset</button>
+            </div>
+            <br>
+            <button class="flexible-btn" onclick="onRandomMeme()" title="Generates a random meme">I'm Flexible!</button>
             <div class="gallery-container">
 
             </div>

@@ -1,24 +1,24 @@
 'use strict'
 
 var gImgs = [
-    { id: 1, url: 'meme-imgs/meme-imgs (square)/1.jpg', keywords: ['funny', 'cat'] },
-    { id: 2, url: 'meme-imgs/meme-imgs (square)/2.jpg', keywords: ['funny', 'cat'] },
-    { id: 3, url: 'meme-imgs/meme-imgs (square)/3.jpg', keywords: ['funny', 'cat'] },
+    { id: 1, url: 'meme-imgs/meme-imgs (square)/1.jpg', keywords: ['trump', 'person'] },
+    { id: 2, url: 'meme-imgs/meme-imgs (square)/2.jpg', keywords: ['cute', 'dog'] },
+    { id: 3, url: 'meme-imgs/meme-imgs (square)/3.jpg', keywords: ['cute', 'baby'] },
     { id: 4, url: 'meme-imgs/meme-imgs (square)/4.jpg', keywords: ['funny', 'cat'] },
-    { id: 5, url: 'meme-imgs/meme-imgs (square)/5.jpg', keywords: ['funny', 'cat'] },
-    { id: 6, url: 'meme-imgs/meme-imgs (square)/6.jpg', keywords: ['funny', 'cat'] },
-    { id: 7, url: 'meme-imgs/meme-imgs (square)/7.jpg', keywords: ['funny', 'cat'] },
-    { id: 8, url: 'meme-imgs/meme-imgs (square)/8.jpg', keywords: ['funny', 'cat'] },
-    { id: 9, url: 'meme-imgs/meme-imgs (square)/9.jpg', keywords: ['funny', 'cat'] },
-    { id: 10, url: 'meme-imgs/meme-imgs (square)/10.jpg', keywords: ['funny', 'cat'] },
-    { id: 11, url: 'meme-imgs/meme-imgs (square)/11.jpg', keywords: ['funny', 'cat'] },
-    { id: 12, url: 'meme-imgs/meme-imgs (square)/12.jpg', keywords: ['funny', 'cat'] },
-    { id: 13, url: 'meme-imgs/meme-imgs (square)/13.jpg', keywords: ['funny', 'cat'] },
-    { id: 14, url: 'meme-imgs/meme-imgs (square)/14.jpg', keywords: ['funny', 'cat'] },
-    { id: 15, url: 'meme-imgs/meme-imgs (square)/15.jpg', keywords: ['funny', 'cat'] },
-    { id: 16, url: 'meme-imgs/meme-imgs (square)/16.jpg', keywords: ['funny', 'cat'] },
-    { id: 17, url: 'meme-imgs/meme-imgs (square)/17.jpg', keywords: ['funny', 'cat'] },
-    { id: 18, url: 'meme-imgs/meme-imgs (square)/18.jpg', keywords: ['funny', 'cat'] },
+    { id: 5, url: 'meme-imgs/meme-imgs (square)/5.jpg', keywords: ['baby', 'serious'] },
+    { id: 6, url: 'meme-imgs/meme-imgs (square)/6.jpg', keywords: ['person', 'funny'] },
+    { id: 7, url: 'meme-imgs/meme-imgs (square)/7.jpg', keywords: ['baby', 'funny'] },
+    { id: 8, url: 'meme-imgs/meme-imgs (square)/8.jpg', keywords: ['person', 'wonka'] },
+    { id: 9, url: 'meme-imgs/meme-imgs (square)/9.jpg', keywords: ['funny', 'baby'] },
+    { id: 10, url: 'meme-imgs/meme-imgs (square)/10.jpg', keywords: ['obama', 'person'] },
+    { id: 11, url: 'meme-imgs/meme-imgs (square)/11.jpg', keywords: ['boxer', 'funny'] },
+    { id: 12, url: 'meme-imgs/meme-imgs (square)/12.jpg', keywords: ['person', 'funny'] },
+    { id: 13, url: 'meme-imgs/meme-imgs (square)/13.jpg', keywords: ['person', 'leonardo'] },
+    { id: 14, url: 'meme-imgs/meme-imgs (square)/14.jpg', keywords: ['matrix', 'serious'] },
+    { id: 15, url: 'meme-imgs/meme-imgs (square)/15.jpg', keywords: ['lord', 'funny'] },
+    { id: 16, url: 'meme-imgs/meme-imgs (square)/16.jpg', keywords: ['startrek', 'funny'] },
+    { id: 17, url: 'meme-imgs/meme-imgs (square)/17.jpg', keywords: ['putin', 'person'] },
+    { id: 18, url: 'meme-imgs/meme-imgs (square)/18.jpg', keywords: ['funny', 'buzz'] },
 ]
 
 var gMeme = {
@@ -35,7 +35,8 @@ var gMeme = {
             height: 0,
             font: 'Impact'
         }
-    ]
+    ],
+    stickers: ['💦','❌','😎','💯','🔥','❤️','🙌🏻','🤫']
 }
 
 var gUploadedImg = null
@@ -88,6 +89,7 @@ function addLine() {
         y: gMeme.lines.length === 0 ? 50 : gElCanvas.height - 50,
         font: 'Impact'
     }
+    
     gMeme.lines.push(newLine)
     updateTextInput()
     renderMeme()
@@ -120,7 +122,7 @@ function renderText() {
 }
 
 function switchLine() {
-    
+
     gMeme.selectedLineIdx = (gMeme.selectedLineIdx + 1) % gMeme.lines.length
 
     updateTextInput()
@@ -139,11 +141,11 @@ function moveLine(dir) {
 
 function deleteLine() {
     const meme = getMeme()
-    
-    if (meme.lines.length === 0) return 
+
+    if (meme.lines.length === 0) return
 
     meme.lines.splice(meme.selectedLineIdx, 1)
-    
+
     if (meme.selectedLineIdx >= meme.lines.length) {
         meme.selectedLineIdx = meme.lines.length - 1
     }
@@ -158,26 +160,31 @@ function deleteLine() {
 }
 
 function alignText(align) {
-    console.log('hello')
     const meme = getMeme()
     const selectedLine = meme.lines[meme.selectedLineIdx]
     const textWidth = gCtx.measureText(selectedLine.txt).width
-    
+
 
     switch (align) {
         case 'left':
-            selectedLine.x = 10 
+            selectedLine.x = 10
             break
         case 'center':
             selectedLine.x = gElCanvas.width / 2 - textWidth / 2
             break
         case 'right':
-            selectedLine.x = gElCanvas.width - textWidth - 10 
+            selectedLine.x = gElCanvas.width - textWidth - 10
             break
         default:
-            return 
+            return
     }
-    renderMeme() 
+    renderMeme()
+}
+
+function addEventListeners() {
+    gElCanvas.addEventListener('mousedown', onMouseDown)
+    gElCanvas.addEventListener('mousemove', onMouseMove)
+    gElCanvas.addEventListener('mouseup', onMouseUp)
 }
 
 //FACEBOOK

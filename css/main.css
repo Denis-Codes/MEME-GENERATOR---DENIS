@@ -167,8 +167,6 @@ input {
 
 .meme-text-input:hover {
     cursor: text;
-
-
 }
 
 input:hover {
@@ -185,6 +183,14 @@ input:hover {
 
 .file-input {
     width: 110px;
+}
+
+.filter-text {
+    background-color: #F0E3CA;
+}
+
+.filter-text:hover {
+    cursor: text;
 }
 
 /* MEDIA QUERIES*/
