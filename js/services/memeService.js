@@ -21,6 +21,8 @@ var gImgs = [
     { id: 18, url: 'meme-imgs/meme-imgs (square)/18.jpg', keywords: ['funny', 'buzz'] },
 ]
 
+var gStickers = ['💦', '❌', '😎', '💯', '🔥', '❤️', '🙌🏻', '🤫']
+
 var gMeme = {
     selectedImgId: 0,
     selectedLineIdx: 0,
@@ -35,8 +37,7 @@ var gMeme = {
             height: 0,
             font: 'Impact'
         }
-    ],
-    stickers: ['💦','❌','😎','💯','🔥','❤️','🙌🏻','🤫']
+    ]
 }
 
 var gUploadedImg = null
@@ -89,7 +90,7 @@ function addLine() {
         y: gMeme.lines.length === 0 ? 50 : gElCanvas.height - 50,
         font: 'Impact'
     }
-    
+
     gMeme.lines.push(newLine)
     updateTextInput()
     renderMeme()
@@ -185,6 +186,62 @@ function addEventListeners() {
     gElCanvas.addEventListener('mousedown', onMouseDown)
     gElCanvas.addEventListener('mousemove', onMouseMove)
     gElCanvas.addEventListener('mouseup', onMouseUp)
+
+    gElCanvas.addEventListener('touchstart', onTouchStart)
+    gElCanvas.addEventListener('touchmove', onTouchMove)
+    gElCanvas.addEventListener('touchend', onTouchEnd)
+}
+
+function onTouchStart(ev) {
+    ev.preventDefault()
+    const touch = ev.touches[0]
+    const { offsetX, offsetY } = getTouchPos(touch)
+    const meme = getMeme()
+    const selectedLine = meme.lines[meme.selectedLineIdx]
+
+    if (
+        offsetX >= selectedLine.x &&
+        offsetX <= selectedLine.x + selectedLine.width &&
+        offsetY >= selectedLine.y &&
+        offsetY <= selectedLine.y + selectedLine.height
+    ) {
+        isDragging = true
+        startX = offsetX
+        startY = offsetY
+    }
+}
+
+function onTouchMove(ev) {
+    ev.preventDefault()
+    if (!isDragging) return
+
+    const touch = ev.touches[0]
+    const { offsetX, offsetY } = getTouchPos(touch)
+    const meme = getMeme()
+    const selectedLine = meme.lines[meme.selectedLineIdx]
+
+    const dx = offsetX - startX
+    const dy = offsetY - startY
+
+    selectedLine.x += dx
+    selectedLine.y += dy
+
+    startX = offsetX
+    startY = offsetY
+
+    renderMeme()
+}
+
+function onTouchEnd() {
+    isDragging = false
+}
+
+function getTouchPos(touch) {
+    const rect = gElCanvas.getBoundingClientRect()
+    return {
+        offsetX: touch.clientX - rect.left,
+        offsetY: touch.clientY - rect.top
+    }
 }
 
 //FACEBOOK
@@ -252,12 +309,38 @@ function loadImageFromInput(ev, onImageReady) {
 }
 
 function renderImg(elImg) {
-    // Draw the img on the canvas
+
     gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
     gUploadedImg = elImg
     renderText()
 }
 
+function renderStickers() {
+    var stickers = gStickers
+    var elStickersContainer = document.querySelector('.stickers-container')
+
+    var strHTMLs = stickers.map(sticker =>
+        `<span onclick="addSticker(this)">${sticker}</span>`
+
+    )
+    elStickersContainer.innerHTML = strHTMLs.join('')
+}
+
+function addSticker(elSticker) {
+    const meme = getMeme()
 
 
+    const newSticker = {
+        txt: elSticker.innerText,
+        size: 50,
+        color: 'white',
+        x: gElCanvas.width / 2, 
+        y: gElCanvas.height / 2, 
+        font: 'Impact' 
+    }
+
+    meme.lines.push(newSticker)
+
+    renderMeme()
+}
 

@@ -13,6 +13,7 @@ function onInit() {
     gMeme.selectedImgId = gImgs[13].id
     renderMeme()
     renderGallery()
+    renderStickers()
     populateDatalist()
     updateTextInput()
     addEventListeners()
@@ -78,10 +79,10 @@ function onRandomMeme() {
                 txt: randomTxt,
                 size: 25,
                 color: 'white',
-                x: null,
+                x: 0,
                 y: 50,
-                width: null,
-                height: null,
+                width: 0,
+                height: 0,
                 font: 'Impact'
             }
         ]

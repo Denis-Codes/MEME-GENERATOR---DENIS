@@ -12,7 +12,7 @@ body {
     letter-spacing: 0.2em;
     margin: 0;
     padding: 0;
-    padding-top: 4.375rem;
+    padding-top: 3.375rem;
 
     display: flex;
     flex-direction: column;
@@ -45,8 +45,12 @@ footer {
 }
 
 footer {
-    height: 2.375rem;
+    height: 1.375rem;
     margin-top: auto;
+    /* position: fixed;
+    z-index: 1;
+    width: 100%;
+    bottom: 0; */
 }
 
 button {
@@ -87,18 +91,29 @@ canvas {
 
 .editor-controls {
     display: grid;
-    gap: 0.325rem;
+    gap: 0.225rem;
     width: 100%;
     /* max-width: 18.75rem; */
     max-width: 25rem;
     margin: 1.25rem 0;
 }
 
+.stickers-container {
+    display: flex;
+    overflow-x: auto;
+    align-items: center;
+    justify-self: center;
+
+    width: 150px;
+
+    border: solid #EEEEEE 5px;
+}
+
 .line-controls button,
 .font-controls button,
 .align-text button,
 .up-down-arrws button {
-    font-size: large;
+    font-size: medium;
 }
 
 .gallery {
@@ -176,7 +191,7 @@ input:hover {
 .font-family-select {
     max-width: 18.75rem;
     width: 50%;
-    height: 50px;
+    height: 25px;
     margin: auto;
     background-color: #F0E3CA;
 }
